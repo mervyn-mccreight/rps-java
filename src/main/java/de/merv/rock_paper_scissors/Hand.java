@@ -6,6 +6,10 @@ public enum Hand {
     SCISSORS;
 
     public GameResult plays(Hand opponent) {
+        if (this.equals(opponent)) {
+            return GameResult.DRAW;
+        }
+
         return null;
     }
 }
