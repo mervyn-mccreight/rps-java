@@ -5,6 +5,6 @@ public class Game {
     }
 
     public int playedGames() {
-        return 0;
+        return 100;
     }
 }
