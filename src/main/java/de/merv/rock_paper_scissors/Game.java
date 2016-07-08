@@ -35,4 +35,8 @@ public class Game {
     public long playerTwoWins() {
         return results.stream().filter(r -> r.equals(GameResult.LOSE)).count();
     }
+
+    public long draws() {
+        return playedGames() - (playerOneWins() + playerTwoWins());
+    }
 }

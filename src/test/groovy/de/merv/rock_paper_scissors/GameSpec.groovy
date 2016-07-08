@@ -22,5 +22,6 @@ class GameSpec extends Specification {
         game.playedGames() == 100;
         game.playerOneWins() == 100;
         game.playerTwoWins() == 0;
+        game.draws() == 0;
     }
 }
