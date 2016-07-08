@@ -5,11 +5,23 @@ public enum Hand {
     PAPER,
     SCISSORS;
 
+    private Hand winsAgainst;
+
+    static {
+        ROCK.winsAgainst = SCISSORS;
+        PAPER.winsAgainst = ROCK;
+        SCISSORS.winsAgainst = PAPER;
+    }
+
     public GameResult plays(Hand opponent) {
         if (this.equals(opponent)) {
             return GameResult.DRAW;
         }
 
-        return null;
+        if (opponent.equals(winsAgainst)) {
+            return GameResult.WIN;
+        }
+
+        return GameResult.LOSE;
     }
 }
