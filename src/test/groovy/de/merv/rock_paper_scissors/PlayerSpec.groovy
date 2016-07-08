@@ -8,9 +8,9 @@ import static de.merv.rock_paper_scissors.Hand.*
 class PlayerSpec extends Specification {
 
     @Unroll
-    def "a static player for #pick should play #pick"() {
+    def "a statically picking #pick player should play #pick"() {
         when:
-        Hand playersHand = new Player().plays();
+        Hand playersHand = new Player({ pick }).plays();
 
         then:
         playersHand == pick;
