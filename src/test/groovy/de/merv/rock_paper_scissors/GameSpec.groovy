@@ -24,4 +24,13 @@ class GameSpec extends Specification {
         game.playerTwoWins() == 0;
         game.draws() == 0;
     }
+
+    def "wins, draws and losses should be equal to the count of played games"() {
+        when:
+        Game game = new Game(new Player({ Hand.random() }), new Player({ Hand.random() }));
+        game.run();
+
+        then:
+        game.playerOneWins() + game.playerTwoWins() + game.draws() == game.playedGames();
+    }
 }

@@ -1,5 +1,7 @@
 package de.merv.rock_paper_scissors;
 
+import java.io.PrintStream;
+import java.text.MessageFormat;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.IntStream;
@@ -38,5 +40,18 @@ public class Game {
 
     public long draws() {
         return playedGames() - (playerOneWins() + playerTwoWins());
+    }
+
+    public void printState(PrintStream out) {
+        String message = MessageFormat.format("Games played: {0}" + System.lineSeparator() +
+                        "# of wins of Player One: {1}" + System.lineSeparator() +
+                        "# of wins of Player Two: {2}" + System.lineSeparator() +
+                        "# of draws: {3}" + System.lineSeparator(),
+                playedGames(),
+                playerOneWins(),
+                playerTwoWins(),
+                draws());
+
+        out.print(message);
     }
 }
