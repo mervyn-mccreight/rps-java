@@ -1,6 +1,7 @@
 package de.merv.rock_paper_scissors;
 
 import java.security.SecureRandom;
+import java.util.function.Supplier;
 
 public enum Hand {
     ROCK,
@@ -16,8 +17,8 @@ public enum Hand {
         SCISSORS.winsAgainst = PAPER;
     }
 
-    public static Hand random() {
-        return values()[random.nextInt(values().length)];
+    public static Hand random(Supplier<Integer> randomNumberGenerator) {
+        return values()[randomNumberGenerator.get()];
     }
 
     public GameResult plays(Hand opponent) {

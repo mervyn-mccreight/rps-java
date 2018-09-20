@@ -11,10 +11,10 @@ class HandsSpec extends Specification {
     @Unroll
     def "#one vs. #two should be a #expectedResult for #one"() {
         when:
-        GameResult result = one.plays(two);
+        GameResult result = one.plays(two)
 
         then:
-        result == expectedResult;
+        result == expectedResult
 
         where:
         one      | two      || expectedResult
@@ -27,5 +27,14 @@ class HandsSpec extends Specification {
         SCISSORS | SCISSORS || DRAW
         SCISSORS | ROCK     || LOSE
         SCISSORS | PAPER    || WIN
+    }
+
+    @Unroll
+    def "random should be deterministic for the a static number generator"() {
+        expect:
+        random({ (expectedHand as Hand).ordinal() }) == expectedHand
+
+        where:
+        expectedHand << Hand.values()
     }
 }
