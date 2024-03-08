@@ -11,14 +11,25 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java_version>1.8</java_version>
+        <java_version>21</java_version>
     </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.spockframework</groupId>
+                <artifactId>spock-bom</artifactId>
+                <version>2.4-M2-groovy-4.0</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
         <dependency>
             <groupId>org.spockframework</groupId>
             <artifactId>spock-core</artifactId>
-            <version>1.0-groovy-2.4</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -51,7 +62,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.5.1</version>
+                <version>3.12.1</version>
                 <configuration>
                     <source>${java_version}</source>
                     <target>${java_version}</target>
@@ -60,27 +71,26 @@
             <plugin>
                 <groupId>org.codehaus.gmavenplus</groupId>
                 <artifactId>gmavenplus-plugin</artifactId>
-                <version>1.4</version>
+                <version>3.0.2</version>
                 <executions>
                     <execution>
                         <goals>
                             <goal>compile</goal>
-                            <goal>testCompile</goal>
+                            <goal>compileTests</goal>
                         </goals>
                     </execution>
                 </executions>
             </plugin>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.6</version>
+                <version>3.2.5</version>
                 <configuration>
                     <useFile>false</useFile>
                     <includes>
-                        <include>**/*Spec.java</include>
+                        <include>**/*Spec</include>
                     </includes>
                 </configuration>
             </plugin>
         </plugins>
     </build>
-
 </project>
