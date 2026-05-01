@@ -2,9 +2,9 @@ package de.merv.rock_paper_scissors;
 
 import java.io.PrintStream;
 import java.text.MessageFormat;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.IntStream;
 
 public class Game {
 
@@ -12,8 +12,7 @@ public class Game {
 
     private final Player playerOne;
     private final Player playerTwo;
-
-    private List<GameResult> results = new LinkedList<>();
+    private final List<GameResult> results = new LinkedList<>();
 
     public Game(Player playerOne, Player playerTwo) {
         this.playerOne = playerOne;
@@ -21,9 +20,9 @@ public class Game {
     }
 
     public void run() {
-        IntStream.range(0, RUNS).forEach(
-                i -> results.add(playerOne.plays().plays(playerTwo.plays()))
-        );
+        for (int i = 0; i < RUNS; i++) {
+            results.add(playerOne.plays().plays(playerTwo.plays()));
+        }
     }
 
     public long playedGames() {
@@ -31,11 +30,11 @@ public class Game {
     }
 
     public long playerOneWins() {
-        return results.stream().filter(r -> r.equals(GameResult.WIN)).count();
+        return Collections.frequency(results, GameResult.WIN);
     }
 
     public long playerTwoWins() {
-        return results.stream().filter(r -> r.equals(GameResult.LOSE)).count();
+        return Collections.frequency(results, GameResult.LOSE);
     }
 
     public long draws() {
@@ -43,7 +42,7 @@ public class Game {
     }
 
     public void printState(PrintStream out) {
-        String message = MessageFormat.format("Games played: {0}" + System.lineSeparator() +
+        var message = MessageFormat.format("Games played: {0}" + System.lineSeparator() +
                         "# of wins of Player One: {1}" + System.lineSeparator() +
                         "# of wins of Player Two: {2}" + System.lineSeparator() +
                         "# of draws: {3}" + System.lineSeparator(),
