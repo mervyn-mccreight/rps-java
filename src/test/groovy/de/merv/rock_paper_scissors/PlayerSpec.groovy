@@ -10,10 +10,10 @@ class PlayerSpec extends Specification {
     @Unroll
     def "a statically picking #pick player should play #pick"() {
         when:
-        Hand playersHand = new Player({ pick }).plays();
+        def playersHand = new Player({ pick }).plays()
 
         then:
-        playersHand == pick;
+        playersHand == pick
 
         where:
         pick     | _

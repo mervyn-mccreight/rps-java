@@ -1,7 +1,6 @@
 package de.merv.rock_paper_scissors;
 
-import java.security.SecureRandom;
-import java.util.function.Supplier;
+import java.util.function.IntSupplier;
 
 public enum Hand {
     ROCK,
@@ -9,7 +8,6 @@ public enum Hand {
     SCISSORS;
 
     private Hand winsAgainst;
-    private static final SecureRandom random = new SecureRandom();
 
     static {
         ROCK.winsAgainst = SCISSORS;
@@ -17,19 +15,17 @@ public enum Hand {
         SCISSORS.winsAgainst = PAPER;
     }
 
-    public static Hand random(Supplier<Integer> randomNumberGenerator) {
-        return values()[randomNumberGenerator.get()];
+    private static final Hand[] CACHE = values();
+
+    public static Hand random(IntSupplier randomNumberGenerator) {
+        return CACHE[randomNumberGenerator.getAsInt()];
     }
 
     public GameResult plays(Hand opponent) {
-        if (this.equals(opponent)) {
-            return GameResult.DRAW;
-        }
-
-        if (opponent.equals(winsAgainst)) {
-            return GameResult.WIN;
-        }
-
-        return GameResult.LOSE;
+        return switch (opponent) {
+            case Hand x when this.equals(x) -> GameResult.DRAW;
+            case Hand x when winsAgainst.equals(x) -> GameResult.WIN;
+            default -> GameResult.LOSE;
+        };
     }
 }

@@ -1,16 +1,14 @@
 package de.merv.rock_paper_scissors;
 
-import java.util.concurrent.ThreadLocalRandom;
-import java.util.function.Supplier;
+import java.util.random.RandomGenerator;
 
 public class Application {
 
-    public static void main(String[] args) {
-        Player krapotke = new Player(() -> Hand.ROCK);
-        Supplier<Hand> strategy = () -> Hand.random(() -> ThreadLocalRandom.current()
-                .nextInt(Hand.values().length));
-        Player randomPlayer = new Player(strategy);
-        Game game = new Game(krapotke, randomPlayer);
+    static void main() {
+        var rockPlayer = new Player(() -> Hand.ROCK);
+        var definedHands = Hand.values().length;
+        var randomPlayer = new Player(() -> Hand.random(() -> RandomGenerator.getDefault().nextInt(definedHands)));
+        var game = new Game(rockPlayer, randomPlayer);
 
         game.run();
 

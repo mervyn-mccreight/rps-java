@@ -2,13 +2,13 @@ package de.merv.rock_paper_scissors
 
 import spock.lang.Specification
 
-import java.util.concurrent.ThreadLocalRandom
+import java.util.random.RandomGenerator
 
 class GameSpec extends Specification {
 
     def "a game should consist of 100 runs"() {
         when:
-        Game game = new Game(new Player({ Hand.ROCK }), new Player({ Hand.ROCK }))
+        def game = new Game(new Player({ Hand.ROCK }), new Player({ Hand.ROCK }))
         game.run()
 
         then:
@@ -17,7 +17,7 @@ class GameSpec extends Specification {
 
     def "a rock player always wins against a scissors player"() {
         when:
-        Game game = new Game(new Player({ Hand.ROCK }), new Player({ Hand.SCISSORS }))
+        def game = new Game(new Player({ Hand.ROCK }), new Player({ Hand.SCISSORS }))
         game.run()
 
         then:
@@ -29,14 +29,15 @@ class GameSpec extends Specification {
 
     def "wins, draws and losses should be equal to the count of played games"() {
         given:
+        def definedHands = Hand.values().length
         def randomPlayer = new Player({
             Hand.random({
-                ThreadLocalRandom.current().nextInt(Hand.values().length)
+                RandomGenerator.default.nextInt(definedHands)
             })
         })
 
         when:
-        Game game = new Game(randomPlayer, randomPlayer)
+        def game = new Game(randomPlayer, randomPlayer)
         game.run()
 
         then:
